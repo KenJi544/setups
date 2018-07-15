@@ -179,7 +179,7 @@ bindsym $mod+r mode "resize"
 bindsym $mod+shift+x exec i3lock&systemctl suspend
 
 #wallpaper
-exec_always feh --bg-scale /home/kenji/Pictures/roundabout_2-wallpaper-1366x768.jpg
+exec_always feh --bg-scale /home/kenji/Pictures/set_wallpaper/
 
 #border style
 hide_edge_borders smart
