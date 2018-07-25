@@ -1,0 +1,1 @@
+menu_ja.eucjp.vim
