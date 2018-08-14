@@ -2087,10 +2087,10 @@ A jump table for the options with a short description can be found at |Q_op|.
 			See also |map_bar|.
 								*cpo-B*
 		B	A backslash has no special meaning in mappings,
-			abbreviations and the "to" part of the menu commands.
-			Remove this flag to be able to use a backslash like a
-			CTRL-V.  For example, the command ":map X \<Esc>"
-			results in X being mapped to:
+			abbreviations, user commands and the "to" part of the
+			menu commands.  Remove this flag to be able to use a
+			backslash like a CTRL-V.  For example, the command
+			":map X \<Esc>" results in X being mapped to:
 				'B' included:	"\^["	 (^[ is a real <Esc>)
 				'B' excluded:	"<Esc>"  (5 characters)
 				('<' excluded in both cases)
@@ -9204,4 +9204,4 @@ A jump table for the options with a short description can be found at |Q_op|.
 	screen.  When non-zero, characters are sent to the terminal one by
 	one.  For MS-DOS pcterm this does not work.  For debugging purposes.
 
- vim:tw=78:ts=8:ft=help:norl:
+ vim:tw=78:ts=8:noet:ft=help:norl:

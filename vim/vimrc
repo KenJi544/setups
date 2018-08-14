@@ -385,7 +385,7 @@ set foldlevel=99
 " Enable folding with the spacebar
 nnoremap <space> za
 
-colorscheme happy_hacking
+colorscheme sublimemonokai
 
 autocmd BufNewFile,BufRead *.py
     \ set tabstop=4 |
@@ -491,3 +491,5 @@ set undodir=~/.vim/undodir
 set undofile
 set undolevels=1000
 set undoreload=10000
+
+au FileType html setl sw=2 sts=2 et

@@ -86,6 +86,7 @@ bindsym $mod+Shift+space floating toggle
 for_window [class="feh"] floating enable
 for_window [class="Thunar"] floating enable
 for_window [class="Gnome-calculator"] floating enable
+for_window [class="Pavucontrol"] floating enable
 
 # change focus between tiling / floating windows
 bindsym $mod+space focus mode_toggle
