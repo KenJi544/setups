@@ -1,0 +1,17 @@
+[user]
+   name = Dan Baltag
+   email = dan@smartsoftdev.eu
+
+[branch]
+   autosetuprebase = always
+
+[http "https://smarthub-wbench.wesp.telekom.net"]
+   sslKey = /home/dan/utils/DTelko/ssl_smarthub-wbench/userkey.pem
+   sslCert = /home/dan/utils/DTelko/ssl_smarthub-wbench/user.crt
+   postBuffer = 104857600
+
+[credential "https://smarthub-wbench.wesp.telekom.net"]
+   username = dan
+
+[credential]
+    helper = cache
