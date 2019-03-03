@@ -1,0 +1,187 @@
+set nocompatible  " be iMproved, required
+filetype off  " required
+set exrc
+
+set rtp+=~/.fzf
+set rtp+=~/.vim/bundle/Vundle.vim
+call vundle#begin()
+
+" ==== plugin manager
+Plugin 'VundleVim/Vundle.vim'
+
+" ==== helpers
+Plugin 'vim-scripts/L9'
+
+" ==== File tree
+Plugin 'scrooloose/nerdtree'
+
+" ==== Completion
+Plugin 'Valloric/YouCompleteMe'
+
+" ==== Git
+Plugin 'airblade/vim-gitgutter'
+Plugin 'tpope/vim-fugitive'
+
+" ==== syntax helpers
+"Plugin 'scrooloose/syntastic'
+"Plugin 'tpope/vim-surround'
+Plugin 'cakebaker/scss-syntax.vim'
+Plugin 'othree/yajs.vim'
+Plugin 'mitsuhiko/vim-jinja'
+Plugin 'octol/vim-cpp-enhanced-highlight'
+Plugin 'ap/vim-css-color'
+Plugin 'Vimjas/vim-python-pep8-indent'
+
+" ==== moving / searching
+Plugin 'easymotion/vim-easymotion'
+Plugin 'kien/ctrlp.vim'
+
+" ==== snippets
+Plugin 'SirVer/ultisnips'
+
+" Status bar on bottom
+Plugin 'bling/vim-airline'
+
+" ==== PLUGIN THEMES
+Plugin 'morhetz/gruvbox'
+
+" ==== PYTHON MODE
+Plugin 'Python-mode-klen'
+
+
+call vundle#end()
+filetype plugin indent on
+
+" ==== Colors and other basic settings
+set fillchars+=vert:\$
+syntax enable
+set background=dark
+set ruler
+set hidden
+set number
+set mouse=a
+set laststatus=2
+set smartindent
+set st=4 sw=4 et
+set shiftwidth=4
+set tabstop=4
+let &colorcolumn="80"
+set guioptions-=m  "remove menu bar
+set guioptions-=T  "remove toolbar
+set guioptions-=r  "remove right-hand scroll bar
+set guioptions-=L  "remove left-hand scroll bar
+colorscheme sublimemonokai
+
+" ==== NERDTREE
+let NERDTreeIgnore = ['__pycache__', '\.pyc$', '\.o$', '\.so$', '\.a$', '\.swp', '*\.swp', '\.swo', '\.swn', '\.swh', '\.swm', '\.swl', '\.swk', '\.sw*$', '[a-zA-Z]*egg[a-zA-Z]*', '.DS_Store']
+
+let NERDTreeShowHidden=1
+let g:NERDTreeWinPos="left"
+let g:NERDTreeDirArrows=0
+map <C-t> :NERDTreeToggle<CR>
+
+" ==== Syntastic
+let g:syntastic_always_populate_loc_list = 1
+let g:syntastic_auto_loc_list = 1
+let g:syntastic_check_on_open = 1
+let g:syntastic_check_on_wq = 0
+set statusline+=%#warningmsg#
+set statusline+=%{SyntasticStatuslineFlag()}
+set statusline+=%*
+let g:syntastic_javascript_checkers = ['eslint']
+let g:syntastic_javascript_mri_args = "--config=$HOME/.jshintrc"
+let g:syntastic_python_checkers = [ 'pylint', 'flake8', 'pep8', 'python']
+let g:syntastic_yaml_checkers = ['jsyaml']
+let g:syntastic_html_tidy_exec = 'tidy5'
+
+" === flake8
+let g:flake8_show_in_file=1
+
+" ==== snippets
+" If you want :UltiSnipsEdit to split your window.
+let g:UltiSnipsEditSplit="vertical"
+
+" better key bindings for UltiSnipsExpandTrigger
+let g:UltiSnipsExpandTrigger = "<tab>"
+let g:UltiSnipsJumpForwardTrigger = "<tab>"
+let g:UltiSnipsJumpBackwardTrigger = "<s-tab>"
+
+" ==== Easymotion
+let g:EasyMotion_do_mapping = 0
+let g:EasyMotion_smartcase = 1
+nmap f <Plug>(easymotion-s)
+
+" ==== custom commands
+command JsonPretty execute ":%!python -m json.tool"
+set secure
+
+" === Python-mode
+let g:pymode = 1
+let g:pymode_folding = 1
+let g:pymode_trim_whitespaces = 1
+let g:pymode_options_max_line_length = 80
+let g:pymode_indent = 0
+let g:pymode_motion = 1
+let g:pymode_doc = 1
+let g:pymode_rope = 1
+let g:pymode_rope_completion = 1
+let g:pymode_rope_complete_on_dot = 1
+let g:pymode_rope_completion_bind = '<C-Space>'
+let g:pymode_rope_autoimport = 1
+let g:pymode_rope_goto_definition_bind = '<C-c>g'
+let g:pymode_rope_goto_definition_cmd = 'new'
+let g:pymode_rope_rename_bind = '<C-c>rr'
+let g:pymode_rope_organize_imports_bind = '<C-c>ro'
+let g:pymode_rope_autoimport_bind = '<C-c>ra'
+let g:pymode_rope_extract_method_bind = '<C-c>rm'
+let g:pymode_rope_extract_variable_bind = '<C-c>rl'
+let g:pymode_rope_use_function_bind = '<C-c>ru'
+let g:pymode_rope_move_bind = '<C-c>rv'
+let g:pymode_rope_change_signature_bind = '<C-c>rs'
+
+
+" *** python-mode folding
+" zf#j creates a fold from the cursor down # lines.
+"zf/string creates a fold from the cursor to string .
+"zj moves the cursor to the next fold.
+"zk moves the cursor to the previous fold.
+"zo opens a fold at the cursor.
+"zO opens all folds at the cursor.
+"zc close a fold at the cursor.
+"zm increases the foldlevel by one.
+"zM closes all open folds.
+"zr decreases the foldlevel by one.
+"zR decreases the foldlevel to zero -- all folds will be open.
+"zd deletes the fold at the cursor.
+"zE deletes all folds.
+"[z move to start of open fold.
+"]z move to end of open fold.
+"
+"
+"
+"
+"FZF
+" This is the default extra key bindings
+let g:fzf_action = {
+  \ 'ctrl-t': 'tab split',
+  \ 'ctrl-x': 'split',
+  \ 'ctrl-v': 'vsplit' }
+
+function! s:build_quickfix_list(lines)
+  call setqflist(map(copy(a:lines), '{ "filename": v:val }'))
+  copen
+  cc
+endfunction
+
+let g:fzf_action = {
+  \ 'ctrl-q': function('s:build_quickfix_list'),
+  \ 'ctrl-t': 'tab split',
+  \ 'ctrl-x': 'split',
+  \ 'ctrl-v': 'vsplit' }
+
+" Default fzf layout
+" - down / up / left / right
+let g:fzf_layout = { 'down': '~40%' }
+command! -bang MyStuff
+  \ call fzf#run(fzf#wrap('my-stuff', {'dir': '~/my-stuff'}, <bang>0))
+
