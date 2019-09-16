@@ -89,15 +89,14 @@ source $ZSH/oh-my-zsh.sh
  if [[ -n $SSH_CONNECTION ]]; then
    export EDITOR='vim'
  else
-   export EDITOR='mvim'
+   export EDITOR='vim'
  fi
 
 # Compilation flags
  export ARCHFLAGS="-arch x86_64"
 
 # Fortune Cow
-cd
-fortune | cowsay -f $(ls /usr/share/cowsay/cows/ | shuf -n1)
+fortune
 
 # Set personal aliases, overriding those provided by oh-my-zsh libs,
 # plugins, and themes. Aliases can be placed here, though oh-my-zsh
@@ -120,13 +119,5 @@ alias cdc="cd /mnt/c/Users/danut.baltag/"
 alias cdd="cd /mnt/d"
 
 alias fortune="fortune | cowsay -f $(ls /usr/share/cowsay/cows/ | shuf -n1)"
-
-alias chrome="/mnt/c/Program\ Files\ \(x86\)/Google/Chrome/Application/chrome.exe"
-alias intellij="/mnt/c/Program\ Files/JetBrains/IntelliJ\ IDEA\ 2019.2/bin/idea64.exe"
-alias thunderbird="/mnt/c/Program\ Files\ \(x86\)/Mozilla\ Thunderbird/thunderbird.exe"
-alias teams="/mnt/c/Users/danut.baltag/AppData/Local/Microsoft/Teams/Update.exe --processStart \"Teams.exe\""
-alias spotify="/mnt/c/Users/danut.baltag/AppData/Roaming/Spotify/Spotify.exe"
-alias telg="/home/dan/repos/tg/bin/telegram-cli -N -k tg-server.pub"
-
-#settings for Xming X server
-export DISPLAY=localhost:0.0
+export EDITOR=/usr/bin/vim
+export VISUAL=/usr/bin/vim
