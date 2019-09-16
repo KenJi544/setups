@@ -95,9 +95,6 @@ source $ZSH/oh-my-zsh.sh
 # Compilation flags
  export ARCHFLAGS="-arch x86_64"
 
-# Fortune Cow
-fortune
-
 # Set personal aliases, overriding those provided by oh-my-zsh libs,
 # plugins, and themes. Aliases can be placed here, though oh-my-zsh
 # users are encouraged to define aliases within the ZSH_CUSTOM folder.
@@ -118,6 +115,13 @@ alias ...='cd ../..'
 alias cdc="cd /mnt/c/Users/danut.baltag/"
 alias cdd="cd /mnt/d"
 
-alias fortune="fortune | cowsay -f $(ls /usr/share/cowsay/cows/ | shuf -n1)"
+#alias fortune="fortune | cowsay -f $(ls /usr/share/cowsay/cows/ | shuf -n1)"
 export EDITOR=/usr/bin/vim
 export VISUAL=/usr/bin/vim
+
+
+
+# Fortune Cow
+if [ -x /usr/games/cowsay -a -x /usr/games/fortune ]; then
+   fortune | cowsay -f $(ls /usr/share/cowsay/cows/ | shuf -n1)
+fi
