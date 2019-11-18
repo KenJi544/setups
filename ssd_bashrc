@@ -150,3 +150,4 @@ function autorename_tab(){
 autorename_tab
 cdr() { cd() { unset -f cd; cd $*; autorename_tab; cdr;} } ; cdr
 
+#blablablabla
