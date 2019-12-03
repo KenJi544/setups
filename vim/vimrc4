@@ -67,7 +67,7 @@ set guioptions-=L  "remove left-hand scroll bar
 set shell=/bin/zsh
 set mouse=a
 set clipboard=unnamedplus
-colorscheme focuspoint
+colorscheme panic
 
 
 " ==== NERDTREE
