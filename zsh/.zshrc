@@ -71,9 +71,13 @@ ZSH_THEME="simple"
 # Example format: plugins=(rails git textmate ruby lighthouse)
 # Add wisely, as too many plugins slow down shell startup.
 plugins=(
+fasd
 git
+sudo
 zsh-syntax-highlighting
 zsh-autosuggestions
+vi-mode
+wd
 )
 
 source $ZSH/oh-my-zsh.sh
@@ -103,6 +107,7 @@ source $ZSH/oh-my-zsh.sh
 # Example aliases
  alias zshconfig="vim ~/.zshrc"
  alias ohmyzsh="vim ~/.oh-my-zsh"
+ alias i3config="vim ~/.config/i3/config"
 
 # some more ls aliases
 alias ll='ls -alhF'
@@ -110,6 +115,8 @@ alias la='ls -gahF'
 alias l='ls -ghF'
 alias ..='cd ..'
 alias ...='cd ../..'
+alias rcp='rsync -azvh --progress'
+alias xclock='xclock -brief -digital -bg "#212121"'
 
 #path to my win_user_home
 alias cdc="cd /mnt/c/Users/danut.baltag/"
@@ -122,6 +129,9 @@ export VISUAL=/usr/bin/vim
 
 
 # Fortune Cow
-if [ -x /usr/games/cowsay -a -x /usr/games/fortune ]; then
-   fortune | cowsay -f $(ls /usr/share/cowsay/cows/ | shuf -n1)
-fi
+#if [ -x /usr/games/cowsay -a -x /usr/games/fortune ]; then
+   #fortune | cowsay -f $(ls /usr/share/cowsay/cows/ | shuf -n1)
+#fi
+
+#TERMITE
+export TERM=xterm-color
