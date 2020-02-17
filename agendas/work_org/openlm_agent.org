@@ -1,0 +1,8 @@
+#+STARTUP: showall
+* Build Agent
+
+** check Solution = Solutions/OpenLM_Agent_12.sln
+
+   for ~OpenLM.Tests.Infrastructure.csproj~
+   it's looking for the wrong path
+   the correct path is ~/test/OpenLM.Tests.Infrastructure/OpenLM.Tests.Infrastructure.csproj~

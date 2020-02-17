@@ -1,0 +1,18 @@
+#+STARTUP: showall
+* My Agenda
+
+** TODO make an agenda template :work:
+   - *Add ics functionalityi*: Integrate google-calendar to org-mode
+     https://orgmode.org/worg/org-tutorials/org-google-sync.html
+
+** TODO check chat bot :work:
+   SCHEDULED: <2020-02-15 Sat>
+   Finish the chatbot to be ready to deploy
+   
+** TODO deploy chatbot to Azure/AWS :work:
+   SCHEDULED: <2020-02-15 Sat>
+
+** TODO deploy using docker-compose and azure :work:
+   SCHEDULED: <2020-02-15 Sat>
+
+** DONE Check agentie imobil                                       :personal:

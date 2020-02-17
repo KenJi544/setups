@@ -1,0 +1,4 @@
+* Notes for Pipelines:
+
+** Add Version var in dev-variables group
+   for the case we'd need to specify which version to use for builds

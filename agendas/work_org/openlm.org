@@ -1,0 +1,24 @@
+;; This buffer is for text that is not saved, and for Lisp evaluation.
+;; To create a file, visit it with C-x C-f and enter text in its buffer.
+#+STARTUP: showall
+
+* DONE for CRMHub prepare GitWorkflow, prod, dev, qa
+
+* TODO check kibana
+  SCHEDULED: <2020-02-16 Sun>
+
+* TODO what's up with nightly builds
+  SCHEDULED: <2020-02-15 Sat>
+
+* DONE *DBScripts* need to make first release on Dev
+  no need to create a pipeline, same fore *Eula*
+  SCHEDULED: <2020-02-13 Thu>
+
+* WIP *CrmHub-Nightly-Build-155* pipeline failed
+  SCHEDULED: <2020-02-13 Thu>
+
+* TODO Add pipeline *LicenseShared*, *Router*
+  SCHEDULED: <2020-02-13 Thu>
+
+* TODO research on docker db tests
+  SCHEDULED: <2020-02-15 Sat>
