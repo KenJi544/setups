@@ -111,8 +111,9 @@ source $ZSH/oh-my-zsh.sh
 
 # some more ls aliases
 alias ll='ls -alhF'
-alias la='ls -gahF'
+alias la='ls -gAhF'
 alias l='ls -ghF'
+alias lgrep='ls -ghF | grep'
 alias ..='cd ..'
 alias ...='cd ../..'
 alias rcp='rsync -azvh --progress'
