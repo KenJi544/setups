@@ -44,6 +44,12 @@ Plugin 'bling/vim-airline'
 " ==== PLUGIN THEMES
 Plugin 'morhetz/gruvbox'
 
+" ==== yml syntax
+Plugin 'mrk21/yaml-vim'
+
+" ==== colorscheme
+Plugin 'ayu-theme/ayu-vim'
+
 call vundle#end()
 filetype plugin indent on
 
@@ -67,7 +73,14 @@ set guioptions-=L  "remove left-hand scroll bar
 set shell=/bin/zsh
 set mouse=a
 set clipboard=unnamedplus
-colorscheme monokai
+set foldenable
+set foldmethod=indent
+set smartcase
+set termguicolors     " enable true colors support
+"let ayucolor="light"  " for light version of theme
+"let ayucolor="mirage" " for mirage version of theme
+let ayucolor="dark"   " for dark version of theme
+colorscheme ayu
 
 
 " ==== NERDTREE
@@ -116,3 +129,8 @@ nmap f <Plug>(easymotion-s)
 " ==== custom commands
 command JsonPretty execute ":%!python -m json.tool"
 set secure
+
+" ==== yml configs
+" add yaml stuffs
+au! BufNewFile,BufReadPost *.{yaml,yml} set filetype=yaml foldmethod=indent
+autocmd FileType yaml setlocal ts=2 sts=2 sw=2 expandtab
