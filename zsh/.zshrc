@@ -8,8 +8,10 @@ export ZSH="/home/dan/.oh-my-zsh"
 # load a random theme each time oh-my-zsh is loaded, in which case,
 # to know which specific one was loaded, run: echo $RANDOM_THEME
 # See https://github.com/robbyrussell/oh-my-zsh/wiki/Themes
-ZSH_THEME="simple"
-#ZSH_THEME="dieter"
+#ZSH_THEME="simple"
+ZSH_THEME="agnoster" #the best so far
+#ZSH_THEME="half-life"
+#ZSH_THEME="af-magic"
 #ZSH_THEME="robbyrussell"
 
 # Set list of themes to pick from when loading at random
@@ -127,6 +129,9 @@ alias cdd="cd /mnt/d"
 export EDITOR=/usr/bin/vim
 export VISUAL=/usr/bin/vim
 
+# keyboard layot
+alias asdf='setxkbmap dvorak -option caps:swapescape'
+alias aoeu='setxkbmap us'
 
 
 # Fortune Cow
@@ -136,3 +141,5 @@ export VISUAL=/usr/bin/vim
 
 #TERMITE
 export TERM=xterm-color
+
+# set dvorak with swapped capslock button
