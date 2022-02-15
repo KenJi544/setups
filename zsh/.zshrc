@@ -9,8 +9,8 @@ export ZSH="/home/dan/.oh-my-zsh"
 # to know which specific one was loaded, run: echo $RANDOM_THEME
 # See https://github.com/robbyrussell/oh-my-zsh/wiki/Themes
 #ZSH_THEME="simple"
-ZSH_THEME="agnoster" #the best so far
-#ZSH_THEME="half-life"
+#ZSH_THEME="agnoster" #the best so far
+ZSH_THEME="half-life"
 #ZSH_THEME="af-magic"
 #ZSH_THEME="robbyrussell"
 
@@ -120,6 +120,9 @@ alias ..='cd ..'
 alias ...='cd ../..'
 alias rcp='rsync -azvh --progress'
 alias xclock='xclock -brief -digital -bg "#212121"'
+alias tl='tree -L'
+alias tla='tree -a -L'
+alias t='tree -a'
 
 #path to my win_user_home
 alias cdc="cd /mnt/c/Users/danut.baltag/"
@@ -133,6 +136,9 @@ export VISUAL=/usr/bin/vim
 alias asdf='setxkbmap dvorak -option caps:swapescape'
 alias aoeu='setxkbmap us'
 
+# xclip to clipboard
+alias clip='xclip -selection c'
+
 
 # Fortune Cow
 #if [ -x /usr/games/cowsay -a -x /usr/games/fortune ]; then
@@ -142,4 +148,36 @@ alias aoeu='setxkbmap us'
 #TERMITE
 export TERM=xterm-color
 
-# set dvorak with swapped capslock button
+# docker-compose
+alias dcu='docker-compose up -d'
+alias dcd='docker-compose down'
+
+#some git aliases
+alias branch='git rev-parse --abbrev-ref HEAD'
+alias repo='basename $(git rev-parse --show-toplevel)'
+
+# az aliases
+alias azb='az pipelines build'
+
+alias azbl='az pipelines build list --definition-id'
+alias azblo='az pipelines build list --open --definition-id'
+alias azbw='watch -n 1 az pipelines build list --definition-id'
+
+alias azbs='az pipelines build show --id'
+alias azbso='az pipelines build show --open --id'
+
+alias azbq='az pipelines build queue --branch `branch` --definition-id'
+alias azbqo='az pipelines build queue --branch `branch` --open --definition-id'
+
+alias azbdl='az pipelines build definition list'
+alias azbdlo='az pipelines build definition --open list'
+alias azbds='az pipelines build definition show --id'
+alias azbdso='az pipelines build definition show --open --id'
+
+alias azbq='az pipelines build queue --branch `branch` --definition-id'
+alias azbqo='az pipelines build queue --branch `branch` --open --definition-id'
+
+alias azr='az pipelines release'
+alias azrd='az pipelines release definition'
+alias azpr='az repos pr create -s $(branch) -r $(repo) --open -t'
+alias azprd='az repos pr create -s $(branch) -r $(repo) --open -t dev'
