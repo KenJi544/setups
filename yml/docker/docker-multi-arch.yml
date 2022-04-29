@@ -1,0 +1,119 @@
+parameters:
+- name: image_name
+  type: string
+- name: dockerfile_path
+  type: string
+  default: '$(System.DefaultWorkingDirectory)' 
+- name: version_var
+  type: object
+- name: stageDependencies
+  type: object
+  default: []
+- name: pre_dockerise
+  type: stepList
+  default: []
+
+stages:
+- stage: Linux_amd64
+  dependsOn: 
+    ${{ parameters.stageDependencies }}
+  jobs:
+  - job: build_linux_amd64
+    pool:
+      vmImage: ubuntu-20.04
+    variables:
+      ${{ insert }}: ${{ parameters.version_var }}
+    steps:
+    - ${{ each step in parameters.pre_dockerise }}:
+      - ${{ each pair in step }}:
+          ${{ pair.key }}: ${{ pair.value }}
+    - bash: |
+        docker -v
+        export DOCKER_CLI_EXPERIMENTAL=enabled
+        docker run --privileged --rm docker/binfmt:a7996909642ee92942dcd6cff44b9b95f08dad64
+        sudo systemcl restart docker
+        docker buildx ls
+      displayName: 'enable docker buildx'
+      enabled: true
+    - bash: docker login -u $(docker_user) -p $(docker_pass) $(docker_login_server)
+      displayName: 'docker login'
+    - bash: |
+        echo "version=$(version)"
+        dtag_amd="$(version)_amd64"
+        echo "docker tag=$dtag_amd"
+        docker buildx build --platform linux/amd64 -t ${{ parameters.image_name }}:$dtag_amd --push .
+        docker images
+        echo "##vso[task.setvariable variable=dtag_amd;isOutput=true]$dtag_amd"
+        echo "##vso[task.setvariable variable=version;isOutput=true]$(version)"
+      displayName: 'build & push image:amd64'
+      name: push_amd
+      workingDirectory: ${{ parameters.dockerfile_path }} 
+- stage: Linux_arm64
+  dependsOn: ${{ parameters.stageDependencies }}
+  jobs:
+  - job: build_linux_arm64
+    pool:
+      vmImage: ubuntu-20.04
+    variables:
+      ${{ insert }}: ${{ parameters.version_var }}
+    steps:
+    - ${{ each step in parameters.pre_dockerise }}:
+      - ${{ each pair in step }}:
+          ${{ pair.key }}: ${{ pair.value }}
+    - bash: |
+        docker -v
+        export DOCKER_CLI_EXPERIMENTAL=enabled
+        docker run --privileged --rm docker/binfmt:a7996909642ee92942dcd6cff44b9b95f08dad64
+        sudo systemcl restart docker
+        docker buildx ls
+      displayName: 'enable docker buildx'
+      enabled: true
+    - bash: docker login -u $(docker_user) -p $(docker_pass) $(docker_login_server)
+      displayName: 'docker login'
+    - bash: |
+        echo "version=$(version)"
+        dtag_arm="$(version)_arm64"
+        echo "docker tag=$dtag_arm"
+        docker buildx build --platform linux/arm64 -t ${{ parameters.image_name }}:$dtag_arm --push .
+        docker images
+        echo "##vso[task.setvariable variable=dtag_arm;isOutput=true]$dtag_arm"
+        echo "##vso[task.setvariable variable=version;isOutput=true]$(version)"
+      displayName: 'build & push image:arm64'
+      name: push_arm
+      workingDirectory: ${{ parameters.dockerfile_path }} 
+- stage: Linux_multi_arch
+  dependsOn: 
+    - Linux_amd64
+    - Linux_arm64
+  jobs:
+  - job: build_linux_multi_arch
+    pool:
+      vmImage: ubuntu-20.04
+    variables: 
+      version: $[ stageDependencies.Linux_amd64.build_linux_amd64.outputs['push_amd.version'] ]
+      dtag_amd: $[ stageDependencies.Linux_amd64.build_linux_amd64.outputs['push_amd.dtag_amd'] ]
+      dtag_arm: $[ stageDependencies.Linux_arm64.build_linux_arm64.outputs['push_arm.dtag_arm'] ]
+    steps:
+    - checkout: none
+    - bash: docker login -u $(docker_user) -p $(docker_pass) $(docker_login_server)
+      displayName: 'docker login'
+    - bash: |
+        docker pull ${{ parameters.image_name }}:$(dtag_amd) &
+        docker pull ${{ parameters.image_name }}:$(dtag_arm) &
+        wait && exit 0
+      displayName: 'pull the images'
+    - bash: |
+        echo "version=$(version)"
+        docker manifest create ${{ parameters.image_name }}:$(version) \
+          ${{ parameters.image_name }}:$(dtag_amd) \
+          ${{ parameters.image_name }}:$(dtag_arm) && \
+        docker manifest push -p ${{ parameters.image_name }}:$(version) &
+        docker manifest create ${{ parameters.image_name }}:latest \
+          ${{ parameters.image_name }}:$(dtag_amd) \
+          ${{ parameters.image_name }}:$(dtag_arm) && \
+        docker manifest push ${{ parameters.image_name }}:latest &
+        wait && exit 0
+      displayName: 'create & push image:latest'
+    - bash: |
+        docker images
+      displayName: 'docker info'
